@@ -1,0 +1,8 @@
+numpy
+scipy
+astropy
+matplotlib
+plotly
+pandas
+psutil
+astrodendro

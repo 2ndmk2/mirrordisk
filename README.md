@@ -32,7 +32,7 @@ pip install -e .
 
 ## Runtime dependencies
 
-`setup.py` lists only part of the required stack. The `tests` pipeline imports these packages at runtime:
+The default `tests` pipeline requires:
 
 - `numpy`
 - `scipy`
@@ -43,7 +43,9 @@ pip install -e .
 - `psutil`
 - `astrodendro`
 
-Install them in your environment before running the pipeline.
+They are listed in `setup.py` and `requirements.txt`.
+
+JAX-backed modules are optional. The default pipeline does not require JAX.
 
 ## Quick start
 
@@ -79,17 +81,6 @@ If no step is given, all steps run in this order:
 - `channel_maps`
 - `html`
 - `residuals`
-
-## CLI arguments
-
-`tests/main.py` accepts:
-
-- `--dataset`: dataset name from the target CSV. If omitted, every dataset in the CSV is processed.
-- `--output-root`: base output directory.
-- `--targets-csv`: CSV file defining input FITS cubes and initial parameters.
-- `steps`: optional positional list chosen from `mirror`, `channel_maps`, `html`, `residuals`.
-
-Important: `tests/config.py` sets `DEFAULT_OUTPUT_ROOT` to `/Volumes/T7 Shield/exoalma_for_code/output`. In most environments you should override this with `--output-root`.
 
 ## Target CSV format
 

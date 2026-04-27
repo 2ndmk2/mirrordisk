@@ -11,7 +11,16 @@ META_PATH = os.path.join("src", "mirrordisk", "__init__.py")
 CLASSIFIERS = [
     "Programming Language :: Python",
 ]
-INSTALL_REQUIRES = ["numpy", "scipy","astropy"]
+INSTALL_REQUIRES = [
+    "numpy",
+    "scipy",
+    "astropy",
+    "matplotlib",
+    "plotly",
+    "pandas",
+    "psutil",
+    "astrodendro",
+]
 # END PROJECT SPECIFIC
 HERE = os.path.dirname(os.path.realpath(__file__))
 
@@ -51,4 +60,3 @@ if __name__ == "__main__":
         zip_safe=False,
         options={"bdist_wheel": {"universal": "1"}},
     )
-
