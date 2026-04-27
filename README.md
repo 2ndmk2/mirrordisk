@@ -8,11 +8,24 @@ This README describes the current runnable workflow based on `tests/`.
 
 The `tests` pipeline does the following:
 
-1. Fits mirror-symmetry parameters for a FITS cube.
-2. Generates mirrored and residual FITS cubes.
-3. Creates per-channel PDF comparison plots.
-4. Builds an interactive 3D residual isosurface HTML.
-5. Produces residual moment maps and higher-order scalar maps.
+Common CLI options for every step:
+
+- `--targets-csv`: choose the target table
+- `--output-root`: choose the output base directory
+- `--dataset`: run one dataset only
+
+1. Fit mirror-symmetry parameters and generate mirrored and residual FITS cubes.
+   Step: `mirror`
+   Config: `MIRROR_DEFAULT_PARAMS` plus target CSV columns `pa_deg_initial`, `x_cen_initial`, `vsys_initial`
+2. Create per-channel PDF comparison plots from the original, mirrored, and residual cubes.
+   Step: `channel_maps`
+   Config: `CHANNEL_MAP_PARAMS`
+3. Build an interactive 3D residual isosurface HTML.
+   Step: `html`
+   Config: `HTML_PARAMS`
+4. Produce residual moment maps and higher-order scalar maps.
+   Step: `residuals`
+   Config: `RESIDUAL_ANALYSIS_PARAMS`
 
 The main file is `tests/main.py`, and its behavior is configured by `tests/config.py` and a target CSV table.
 
