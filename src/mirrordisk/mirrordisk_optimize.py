@@ -2,7 +2,7 @@ from astropy.io import fits
 import numpy as np
 import astropy.constants as const
 from scipy.optimize import minimize
-from asymmvelo import asymm_make
+from . import mirrordisk_make
 
 scipy_opt_method = "nelder-mead"
 
@@ -33,7 +33,9 @@ def compute_res_asym_vsys_pa_fixed(params, vsys, pa_rad, xx_inp, yy_inp, interpo
     res_now = 0
     x_cen = params[0]
     for vec_val in vec_val_arr:
-        image_vec_val, image_vec_sym =asymm_make.make_line_sym_image(interpolator, xx_inp, yy_inp, vec_val, vsys, x_cen,  pa_rad)
+        image_vec_val, image_vec_sym = mirrordisk_make.make_line_sym_image(
+            interpolator, xx_inp, yy_inp, vec_val, vsys, x_cen, pa_rad
+        )
         res_now +=np.sum( (image_vec_val - image_vec_sym) ** 2)/(np.std(image_vec_val)**2)
     return np.sqrt(res_now)
 
@@ -64,7 +66,9 @@ def compute_res_asym_x_cen_pa_fixed(params, x_cen, pa_rad, xx_inp, yy_inp, inter
     res_now = 0
     vsys = params[0]
     for vec_val in vec_val_arr:
-        image_vec_val, image_vec_sym =asymm_make.make_line_sym_image(interpolator, xx_inp, yy_inp, vec_val, vsys, x_cen,  pa_rad)
+        image_vec_val, image_vec_sym = mirrordisk_make.make_line_sym_image(
+            interpolator, xx_inp, yy_inp, vec_val, vsys, x_cen, pa_rad
+        )
         res_now +=np.sum( (image_vec_val - image_vec_sym) ** 2)/(np.std(image_vec_val)**2)
     return np.sqrt(res_now)
 
@@ -96,7 +100,9 @@ def compute_res_asym_pa_fixed(params, pa_rad, xx_inp, yy_inp, interpolator, vec_
     vsys = params[0]
     x_cen = params[1]
     for vec_val in vec_val_arr:
-        image_vec_val, image_vec_sym =asymm_make.make_line_sym_image(interpolator, xx_inp, yy_inp, vec_val, vsys, x_cen,  pa_rad)
+        image_vec_val, image_vec_sym = mirrordisk_make.make_line_sym_image(
+            interpolator, xx_inp, yy_inp, vec_val, vsys, x_cen, pa_rad
+        )
         res_now +=np.sum( (image_vec_val - image_vec_sym) ** 2)/(np.std(image_vec_val)**2)
     return res_now
 
@@ -127,7 +133,9 @@ def compute_res_asym(params, xx_inp, yy_inp, interpolator, vec_val_arr):
     x_cen = params[1]
     pa_rad = params[2]
     for vec_val in vec_val_arr:
-        image_vec_val, image_vec_sym = asymm_make.make_line_sym_image(interpolator, xx_inp, yy_inp, vec_val, vsys, x_cen, pa_rad)
+        image_vec_val, image_vec_sym = mirrordisk_make.make_line_sym_image(
+            interpolator, xx_inp, yy_inp, vec_val, vsys, x_cen, pa_rad
+        )
         res_now +=np.sum( (image_vec_val - image_vec_sym) ** 2)/(np.std(image_vec_val)**2)
     return res_now
 
@@ -270,4 +278,3 @@ def optimize_each_and_all(initial_guess, xx_inp, yy_inp, interpolator, vec_val_a
     result_all_fit_update = optimize_vsys_xcen_pa( initial_guess_update, xx_inp, yy_inp,  interpolator, vec_val_arr)
 
     return result_all_fit_update
-

@@ -11,8 +11,13 @@ __description__ = "asymv"
 from . import mirrordisk_optimize
 from . import mirrordisk_make
 
-from . import mirrordisk_optimize_jax
-from . import mirrordisk_make_jax
+try:
+    from . import mirrordisk_optimize_jax
+    from . import mirrordisk_make_jax
+except ImportError:
+    # Keep JAX support optional for the default pipeline.
+    pass
+
 from . import mirror
 from . import mirrordisk_res_ana
 from . import workflows
