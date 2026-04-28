@@ -1,0 +1,359 @@
+\documentclass{report}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{geometry}
+\usepackage{natbib}
+\bibliographystyle{aasjournal}
+\usepackage{graphicx}
+\usepackage{tikz}
+\geometry{a4paper, margin=2.5cm}
+
+\hypersetup{
+    colorlinks=true,
+    citecolor=blue,
+    linkcolor=black,
+    pdfborder={0 0 0}
+}
+
+
+\makeatletter
+\let\jnl@style=\rm
+\def\ref@jnl#1{{\jnl@style#1}}
+
+\def\aj{\ref@jnl{AJ}}
+\def\actaa{\ref@jnl{Acta Astron.}}
+\def\araa{\ref@jnl{ARA\&A}}
+\def\apj{\ref@jnl{ApJ}}
+\def\apjl{\ref@jnl{ApJ}}
+\def\apjs{\ref@jnl{ApJS}}
+\def\ao{\ref@jnl{Appl.~Opt.}}
+\def\apss{\ref@jnl{Ap\&SS}}
+\def\aap{\ref@jnl{A\&A}}
+\def\aapr{\ref@jnl{A\&A~Rev.}}
+\def\aaps{\ref@jnl{A\&AS}}
+\def\azh{\ref@jnl{AZh}}
+\def\baas{\ref@jnl{BAAS}}
+\def\bac{\ref@jnl{Bull. astr. Inst. Czechosl.}}
+\def\caa{\ref@jnl{Chinese Astron. Astrophys.}}
+\def\cjaa{\ref@jnl{Chinese J. Astron. Astrophys.}}
+\def\icarus{\ref@jnl{Icarus}}
+\def\jcap{\ref@jnl{J. Cosmology Astropart. Phys.}}
+\def\jrasc{\ref@jnl{JRASC}}
+\def\memras{\ref@jnl{MmRAS}}
+\def\mnras{\ref@jnl{MNRAS}}
+\def\na{\ref@jnl{New A}}
+\def\nar{\ref@jnl{New A Rev.}}
+\def\pra{\ref@jnl{Phys.~Rev.~A}}
+\def\prb{\ref@jnl{Phys.~Rev.~B}}
+\def\prc{\ref@jnl{Phys.~Rev.~C}}
+\def\prd{\ref@jnl{Phys.~Rev.~D}}
+\def\pre{\ref@jnl{Phys.~Rev.~E}}
+\def\prl{\ref@jnl{Phys.~Rev.~Lett.}}
+\def\pasa{\ref@jnl{PASA}}
+\def\pasp{\ref@jnl{PASP}}
+\def\pasj{\ref@jnl{PASJ}}
+\def\rmxaa{\ref@jnl{Rev. Mexicana Astron. Astrofis.}}
+\def\qjras{\ref@jnl{QJRAS}}
+\def\skytel{\ref@jnl{S\&T}}
+\def\solphys{\ref@jnl{Sol.~Phys.}}
+\def\sovast{\ref@jnl{Soviet~Ast.}}
+\def\ssr{\ref@jnl{Space~Sci.~Rev.}}
+\def\zap{\ref@jnl{ZAp}}
+\def\nat{\ref@jnl{Nature}}
+\def\iaucirc{\ref@jnl{IAU~Circ.}}
+\def\aplett{\ref@jnl{Astrophys.~Lett.}}
+\def\apspr{\ref@jnl{Astrophys.~Space~Phys.~Res.}}
+\def\bain{\ref@jnl{Bull.~Astron.~Inst.~Netherlands}}
+\def\fcp{\ref@jnl{Fund.~Cosmic~Phys.}}
+\def\gca{\ref@jnl{Geochim.~Cosmochim.~Acta}}
+\def\grl{\ref@jnl{Geophys.~Res.~Lett.}}
+\def\jcp{\ref@jnl{J.~Chem.~Phys.}}
+\def\jgr{\ref@jnl{J.~Geophys.~Res.}}
+\def\jqsrt{\ref@jnl{J.~Quant.~Spec.~Radiat.~Transf.}}
+\def\memsai{\ref@jnl{Mem.~Soc.~Astron.~Italiana}}
+\def\nphysa{\ref@jnl{Nucl.~Phys.~A}}
+\def\physrep{\ref@jnl{Phys.~Rep.}}
+\def\physscr{\ref@jnl{Phys.~Scr}}
+\def\planss{\ref@jnl{Planet.~Space~Sci.}}
+\def\procspie{\ref@jnl{Proc.~SPIE}}
+
+\let\astap=\aap
+\let\apjlett=\apjl
+\let\apjsupp=\apjs
+\let\applopt=\ao
+
+\title{{\it mirrordisk}:  Mirror-Symmetry Residual Analysis of Protoplanetary Disks in ALMA Spectral-Line Cubes}
+\author{Masataka Aizawa (\texttt{aizw.masa@gmail.com})}
+\date{Apr 28, 2026}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Overview}
+{\it mirrordisk} is a Python package for extracting non-axisymmetric residual structure from ALMA spectral-line cubes by comparing each channel with its mirrored counterpart across the disk minor axis. In the three-dimensional space of sky coordinates $(x, y) = (\mathrm{RA}, \mathrm{Dec})$ and velocity/channel $v$, an approximately axisymmetric disk is expected to satisfy
+\begin{equation}
+   I(v, x, y) = I(2v_{\rm sys} - v, x_{\rm sym}, y_{\rm sym}),
+\end{equation}
+where $(x_{\rm sym}, y_{\rm sym})$ is the reflection of $(x, y)$ across the disk minor axis and $v_{\rm sys}$ is the systemic velocity. The minor axis is specified by the disk position angle and a center offset.
+
+In the current implementation, $x$ and $y$ correspond to $\Delta$RA and $\Delta$Dec in arcsec, respectively. Following the usual astronomical image convention, positive $\Delta$RA is shown to the left, while positive $\Delta$Dec is shown upward. The mirror axis is represented as a straight line in the image plane,
+\begin{equation}
+    y = \tan(\mathrm{PA}) (x - x_{\rm cen}),
+\end{equation}
+where PA is the position angle and $x_{\rm cen}$ is the $x$-intercept of the minor axis, namely the $\Delta$RA offset where the line crosses $y=0$. Thus, the fitted geometric parameters are $(x_{\rm cen}, \mathrm{PA})$, rather than a full two-dimensional disk-center coordinate.
+Figure~\ref{fig:mirror_symmetry} illustrates this mirror geometry, including the minor axis, the intercept $x_{\rm cen}$, and the reflected coordinate pair $(x, y) \leftrightarrow (x_{\rm sym}, y_{\rm sym})$.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[scale=1.1, >=stealth]
+    % axes
+    \draw[->] (3.6,0) -- (-3.2,0) node[left] {$x=\Delta \mathrm{RA}$};
+    \draw[->] (0,-2.4) -- (0,3.0) node[above] {$y=\Delta \mathrm{Dec}$};
+
+    % minor axis
+    \draw[thick, blue] (-0.6,-1.97) -- (2.4,2.48) node[above right, black] {minor axis};
+
+    % x_cen
+    \filldraw[blue] (0.73,0) circle (1.4pt);
+    \draw[dashed, blue] (0.73,0) -- (0.73,-0.45);
+    \node[below, blue] at (0.73,-0.45) {$x_{\rm cen}$};
+
+    % PA arc
+    \draw[->, blue] (1.55,0) arc[start angle=0,end angle=56,radius=0.82];
+    \node[blue] at (1.68,0.55) {$\mathrm{PA}$};
+
+    % point and reflected point
+    \filldraw[red] (2.7,0.4) circle (1.6pt);
+    \node[right, red] at (2.7,0.4) {$(x,y)$};
+    \filldraw[red] (0.36,1.98) circle (1.6pt);
+    \node[left, red] at (0.36,1.98) {$(x_{\rm sym},y_{\rm sym})$};
+
+    % connection
+    \draw[dashed, red] (2.7,0.4) -- (0.36,1.98);
+
+    % midpoint / perpendicular
+    \filldraw[black] (1.53,1.19) circle (1.1pt);
+    \draw[black] (1.45,1.09) -- (1.54,1.03) -- (1.60,1.12);
+\end{tikzpicture}
+\caption{Schematic of the mirror symmetry used by \textit{mirrordisk}. A point $(x,y)$ at velocity $v$ is compared with its reflected position $(x_{\rm sym}, y_{\rm sym})$ across the minor axis at velocity $2v_{\rm sys}-v$.}
+\label{fig:mirror_symmetry}
+\end{figure}
+
+The code reconstructs the mirror cube
+\begin{equation}
+    I_{\rm mirror}(v, x, y) = I(2v_{\rm sys} - v, x_{\rm sym}, y_{\rm sym}),
+\end{equation}
+and separates the symmetric and asymmetric components as
+\begin{align}
+     I(v, x, y) &= I_{\rm sym}(v, x, y) + I_{\rm asym}(v, x, y), \\
+I_{\rm sym}(v, x, y) &= \frac{I(v, x, y) + I_{\rm mirror}(v, x, y)}{2}, \\
+I_{\rm asym}(v, x, y) &= \frac{I(v, x, y) - I_{\rm mirror}(v, x, y)}{2}.
+\end{align}
+In this interpretation, $I_{\rm sym}$ traces the approximately axisymmetric disk component, while $I_{\rm asym}$ isolates non-axisymmetric residual structure.
+
+The current runnable workflow is based on \texttt{tests/main.py}, configured by \texttt{tests/config.py} and a target CSV table. The pipeline provides the following steps:
+\begin{itemize}
+\item \texttt{mirror}: fit mirror-symmetry parameters and generate mirrored and residual FITS cubes.
+\item \texttt{channel\_maps}: create channel-by-channel PDF comparison plots.
+\item \texttt{html}: build an interactive 3D residual isosurface HTML.
+\item \texttt{residuals}: produce residual moment maps and higher-order scalar maps.
+\end{itemize}
+
+Common command-line options for every step are:
+\begin{itemize}
+\item \texttt{--targets-csv}: choose the target table.
+\item \texttt{--output-root}: choose the output base directory.
+\item \texttt{--dataset}: run one dataset only.
+\end{itemize}
+
+The installation, configuration, and runnable examples are summarized in the following chapters.
+
+
+\chapter{Install \label{sec:reuired}}
+Install the package with
+\begin{verbatim}
+pip install .
+\end{verbatim}
+or, for editable development,
+\begin{verbatim}
+pip install -e .
+\end{verbatim}
+
+The default pipeline requires the following Python packages:
+\begin{itemize}
+    \item numpy
+    \item scipy
+    \item astropy
+    \item matplotlib
+    \item plotly
+    \item pandas
+    \item psutil
+    \item astrodendro
+\end{itemize}
+These dependencies are listed in \texttt{setup.py} and \texttt{requirements.txt}. JAX-backed modules are optional and are not required for the default pipeline.
+
+\chapter{Input and Configuration \label{sec:prep_sec}}
+
+\section{Target CSV format \label{sec:format_data}}
+The pipeline expects a target CSV table describing one or more FITS spectral-line cubes. The CSV must include the following columns:
+\begin{itemize}
+    \item \textbf{source\_name}: dataset identifier used by \texttt{--dataset} and output naming.
+    \item \textbf{source\_fits\_path}: full path to the input FITS cube.
+    \item \textbf{pa\_deg\_initial}: initial position angle in degrees.
+    \item \textbf{x\_cen\_initial}: initial center offset in arcsec.
+    \item \textbf{vsys\_initial}: initial systemic velocity in km/s. This may be left blank to estimate it from the cube.
+\end{itemize}
+
+An example is
+\begin{verbatim}
+source_name,source_fits_path,pa_deg_initial,x_cen_initial,vsys_initial
+J1615,/path/to/J1615_cube.fits,146,0,4.7
+\end{verbatim}
+
+The repository example is \texttt{tests/targets.csv}. The current examples assume local FITS paths; the repository does not bundle the data cubes.
+
+\section{Configuration in \texttt{tests/config.py}}
+\texttt{tests/config.py} combines target-specific CSV values with shared defaults.
+
+\subsection{Mirror fitting}
+\texttt{MIRROR\_DEFAULT\_PARAMS} controls the mirror fitting step:
+\begin{itemize}
+    \item The fitted parameters are \textbf{systemic velocity} $v_{\rm sys}$, \textbf{center offset} $x_{\rm cen}$, and \textbf{position angle} PA.
+    \item Here, $x_{\rm cen}$ is the \textbf{$x$-intercept of the minor axis}, that is, the \textbf{$\Delta$RA offset} in arcsec where the minor-axis line crosses $y=0$. It is not a full two-dimensional disk-center coordinate.
+    \item Their initial values come from the target CSV columns \texttt{vsys\_initial}, \texttt{x\_cen\_initial}, and \texttt{pa\_deg\_initial}.
+    \item \textbf{inp\_max}: half-width of the interpolation grid in arcsec.
+    \item \textbf{n\_points}: number of interpolation samples per spatial axis.
+    \item \textbf{vec\_offsets}: velocity offsets in km/s relative to \texttt{vsys\_initial}.
+\end{itemize}
+
+\subsection{Channel maps}
+\texttt{CHANNEL\_MAP\_PARAMS} controls output for channel-map plotters
+\begin{itemize}
+    \item \textbf{dv}: velocity spacing in km/s between plotted channels.
+    \item \textbf{vlim}: maximum absolute velocity offset from systemic velocity.
+    \item \textbf{plot\_lim}: spatial half-width in arcsec.
+    \item \textbf{font\_size}, \textbf{axes\_labelsize}: matplotlib font sizes.
+\end{itemize}
+
+\subsection{3D HTML residual view}
+\texttt{HTML\_PARAMS} controls the residual isosurface export:
+\begin{itemize}
+    \item \textbf{skip1}: spatial downsampling factor.
+    \item \textbf{skip2}: spectral downsampling factor.
+    \item \textbf{vlim}: velocity range used before meshing.
+    \item \textbf{plot\_lim}: spatial limit used before meshing.
+    \item \textbf{contour\_sigma}: multiplier used to set the isosurface threshold.
+\end{itemize}
+
+\subsection{Residual analysis}
+\texttt{RESIDUAL\_ANALYSIS\_PARAMS} controls the post-processing maps:
+\begin{itemize}
+    \item \textbf{skip1}, \textbf{skip2}, \textbf{vlim}, \textbf{plot\_lim}: preprocessing controls.
+    \item \textbf{min\_npix}: minimum connected voxel count for the dendrogram mask.
+    \item \textbf{nsigma}: significance threshold in noise sigma.
+\end{itemize}
+
+\chapter{Run scripts \label{sec:run_script}}
+\section{Quick start}
+\subsection{Overview}
+If no step is given, \texttt{tests/main.py} runs all steps in this order:
+\begin{itemize}
+    \item \texttt{mirror}
+    \item \texttt{channel\_maps}
+    \item \texttt{html}
+    \item \texttt{residuals}
+\end{itemize}
+
+\subsection{Example commands}
+Run one step:
+\begin{verbatim}
+python tests/main.py \
+  --targets-csv tests/targets.csv \
+  --output-root /path/to/output \
+  mirror
+\end{verbatim}
+
+Run all steps for all datasets listed in the CSV:
+\begin{verbatim}
+python tests/main.py \
+  --targets-csv tests/targets.csv \
+  --output-root /path/to/output
+\end{verbatim}
+
+Run one dataset only when needed:
+\begin{verbatim}
+python tests/main.py \
+  --targets-csv tests/targets.csv \
+  --output-root /path/to/output \
+  --dataset J1615
+\end{verbatim}
+
+To run a single step, append the step name such as \texttt{mirror}, \texttt{channel\_maps}, \texttt{html}, or \texttt{residuals} at the end of the command.
+
+The options are:
+\begin{itemize}
+    \item \textbf{--targets-csv}: CSV file defining input FITS cubes and initial parameters.
+    \item \textbf{--output-root}: base output directory.
+    \item \textbf{--dataset}: dataset name from the target CSV. If omitted, every dataset in the CSV is processed.
+\end{itemize}
+
+\subsection{Output structure}
+Given \texttt{--output-root /path/to/output}, the pipeline writes:
+\begin{itemize}
+    \item \texttt{/path/to/output/result/mirror/}: fitted parameters, mirrored FITS, residual FITS.
+    \item \texttt{/path/to/output/result/channel\_maps/<source\_name>/}: channel-by-channel PDF figures.
+    \item \texttt{/path/to/output/html/}: interactive residual isosurface HTML.
+    \item \texttt{/path/to/output/moms/}: moment maps and higher-order residual maps.
+\end{itemize}
+
+Mirror products are named from the input FITS stem:
+\begin{itemize}
+    \item \texttt{<stem>\_mirrorparams.npy}
+    \item \texttt{<stem>\_mirror.fits}
+    \item \texttt{<stem>\_res.fits}
+\end{itemize}
+
+\section{Step details}
+\subsection{\texttt{mirror}}
+\begin{itemize}
+    \item Fits the mirror-symmetry parameters \textbf{$v_{\rm sys}$}, \textbf{$x_{\rm cen}$}, and \textbf{PA}.
+    \item In the current implementation, $x_{\rm cen}$ means the \textbf{minor-axis $x$-intercept}, namely the $\Delta$RA position where the minor axis crosses $y=0$.
+    \item The initial guesses are taken from \texttt{vsys\_initial}, \texttt{x\_cen\_initial}, and \texttt{pa\_deg\_initial} in the target CSV.
+    \item Writes optimized parameters and generates mirrored and residual FITS cubes.
+\end{itemize}
+
+\subsection{\texttt{channel\_maps}}
+\begin{itemize}
+    \item Loads the original, mirrored, and residual cubes.
+    \item Writes one PDF per sampled velocity channel with side-by-side panels.
+\end{itemize}
+
+\subsection{\texttt{html}}
+\begin{itemize}
+    \item Builds an interactive 3D isosurface view from the residual cube.
+    \item Writes an HTML file under the HTML output directory.
+\end{itemize}
+
+\subsection{\texttt{residuals}}
+\begin{itemize}
+    \item Masks significant residual structure with \texttt{astrodendro}.
+    \item Produces positive and negative residual moment maps.
+    \item Produces additional scalar maps for moment 8 and moment 9.
+\end{itemize}
+
+\section{Notes}
+\begin{itemize}
+    \item The examples assume \texttt{pip install .} or \texttt{pip install -e .} has already been run, so \texttt{PYTHONPATH=src} is not needed.
+    \item \texttt{--dataset} is optional. If omitted, every row in the CSV is processed.
+    \item If \texttt{vsys\_initial} is blank in the CSV, the code estimates the systemic velocity from the cube.
+\end{itemize}
+
+
+\bibliography{ref.bib}
+
+\end{document}
