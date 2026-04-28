@@ -226,39 +226,39 @@ The repository example is \texttt{tests/targets.csv}. The current examples assum
     \item The fitted parameters are \textbf{systemic velocity} $v_{\rm sys}$, \textbf{center offset} $x_{\rm cen}$, and \textbf{position angle} PA.
     \item Here, $x_{\rm cen}$ is the \textbf{$x$-intercept of the minor axis}, that is, the \textbf{$\Delta$RA offset} in arcsec where the minor-axis line crosses $y=0$. It is not a full two-dimensional disk-center coordinate.
     \item Their initial values come from the target CSV columns \texttt{vsys\_initial}, \texttt{x\_cen\_initial}, and \texttt{pa\_deg\_initial}.
-    \item \textbf{inp\_max}: \textbf{this parameter determines the spatial extent used in the mirror fitting}. The interpolation grid is built over $-\,\texttt{inp\_max} \le x, y \le \texttt{inp\_max}$ in arcsec, so it sets the half-width of the fitted square region on the sky.
-    \item \textbf{n\_points}: \textbf{this parameter determines the spatial sampling of the fitting grid}. It is the number of interpolation samples on each spatial axis, so larger values produce a finer grid for the fitting.
-    \item \textbf{vec\_offsets}: \textbf{this parameter determines the velocities used in the mirror fitting}. These are velocity offsets in km/s relative to \texttt{vsys\_initial}, and the fitting velocities are computed as $v = \texttt{vsys\_initial} + \texttt{vec\_offsets}$.
+    \item \textbf{inp\_max}: this parameter determines the spatial extent used in the mirror fitting. The interpolation grid is built over $-\,\texttt{inp\_max} \le x, y \le \texttt{inp\_max}$ in arcsec, so it sets the half-width of the fitted square region on the sky.
+    \item \textbf{n\_points}: this parameter determines the spatial sampling of the fitting grid. It is the number of interpolation samples on each spatial axis, so larger values produce a finer grid for the fitting.
+    \item \textbf{vec\_offsets}: this parameter determines the velocities used in the mirror fitting. These are velocity offsets in km/s relative to \texttt{vsys\_initial}, and the fitting velocities are computed as $v = \texttt{vsys\_initial} + \texttt{vec\_offsets}$.
 \end{itemize}
 
 \subsection{Channel maps}
 \texttt{CHANNEL\_MAP\_PARAMS} controls output for channel-map plotters
 \begin{itemize}
-    \item \textbf{dv}: \textbf{this parameter determines the velocity sampling of the channel-map output}. Channel maps are requested at intervals of \texttt{dv} in km/s around the fitted systemic velocity.
-    \item \textbf{vlim}: \textbf{this parameter determines the total velocity range shown in the channel maps}. The code samples channels over approximately $-\,\texttt{vlim} \le v-v_{\rm sys} \le \texttt{vlim}$.
-    \item \textbf{plot\_lim}: \textbf{this parameter determines the spatial field of view shown in each channel-map panel}. The displayed axes are limited to $\pm\,\texttt{plot\_lim}$ arcsec.
-    \item \textbf{font\_size}, \textbf{axes\_labelsize}: \textbf{these parameters determine the annotation size in the PDF figures}, including titles and axis labels.
+    \item \textbf{dv}: this parameter determines the velocity sampling of the channel-map output. Channel maps are requested at intervals of \texttt{dv} in km/s around the fitted systemic velocity.
+    \item \textbf{vlim}: this parameter determines the total velocity range shown in the channel maps. The code samples channels over approximately $-\,\texttt{vlim} \le v-v_{\rm sys} \le \texttt{vlim}$.
+    \item \textbf{plot\_lim}: this parameter determines the spatial field of view shown in each channel-map panel. The displayed axes are limited to $\pm\,\texttt{plot\_lim}$ arcsec.
+    \item \textbf{font\_size}, \textbf{axes\_labelsize}: these parameters determine the annotation size in the PDF figures, including titles and axis labels.
 \end{itemize}
 
 \subsection{3D HTML residual view}
 \texttt{HTML\_PARAMS} controls the residual isosurface export:
 \begin{itemize}
-    \item \textbf{skip1}: \textbf{this parameter determines the spatial downsampling applied before building the 3D residual cube}. The code keeps every \texttt{skip1}-th spatial pixel along both sky axes.
-    \item \textbf{skip2}: \textbf{this parameter determines the spectral downsampling applied before meshing}. The code keeps every \texttt{skip2}-th velocity channel.
-    \item \textbf{vlim}: \textbf{this parameter determines the velocity range retained for the 3D residual view}. Only channels satisfying $|v-v_{\rm sys}| < \texttt{vlim}$ are used.
-    \item \textbf{plot\_lim}: \textbf{this parameter determines the spatial region retained for the 3D residual view}. Only pixels satisfying $|x| < \texttt{plot\_lim}$ and $|y| < \texttt{plot\_lim}$ are used.
-    \item \textbf{contour\_sigma}: \textbf{this parameter determines the isosurface threshold}. The plotted contour level is computed from the measured noise as $\texttt{contour\_sigma} \times \sigma$.
+    \item \textbf{skip1}: this parameter determines the spatial downsampling applied before building the 3D residual cube. The code keeps every \texttt{skip1}-th spatial pixel along both sky axes.
+    \item \textbf{skip2}: this parameter determines the spectral downsampling applied before meshing. The code keeps every \texttt{skip2}-th velocity channel.
+    \item \textbf{vlim}: this parameter determines the velocity range retained for the 3D residual view. Only channels satisfying $|v-v_{\rm sys}| < \texttt{vlim}$ are used.
+    \item \textbf{plot\_lim}: this parameter determines the spatial region retained for the 3D residual view. Only pixels satisfying $|x| < \texttt{plot\_lim}$ and $|y| < \texttt{plot\_lim}$ are used.
+    \item \textbf{contour\_sigma}: this parameter determines the isosurface threshold. The plotted contour level is computed from the measured noise as $\texttt{contour\_sigma} \times \sigma$.
 \end{itemize}
 
 \subsection{Residual analysis}
 \texttt{RESIDUAL\_ANALYSIS\_PARAMS} controls the post-processing maps:
 \begin{itemize}
-    \item \textbf{skip1}: \textbf{this parameter determines the spatial downsampling used before residual moment analysis}. The code keeps every \texttt{skip1}-th spatial pixel.
-    \item \textbf{skip2}: \textbf{this parameter determines the spectral downsampling used before residual moment analysis}. The code keeps every \texttt{skip2}-th velocity channel.
-    \item \textbf{vlim}: \textbf{this parameter determines the velocity range included in the residual analysis}. Only channels satisfying $|v-v_{\rm sys}| < \texttt{vlim}$ are analyzed.
-    \item \textbf{plot\_lim}: \textbf{this parameter determines the spatial region included in the residual analysis}. Only pixels satisfying $|x| < \texttt{plot\_lim}$ and $|y| < \texttt{plot\_lim}$ are analyzed.
-    \item \textbf{min\_npix}: \textbf{this parameter determines the minimum connected structure size retained by the dendrogram mask}. Smaller connected residual features are discarded.
-    \item \textbf{nsigma}: \textbf{this parameter determines the significance threshold for the dendrogram mask}. Residual emission must exceed approximately $\texttt{nsigma} \times \sigma$ to be included.
+    \item \textbf{skip1}: this parameter determines the spatial downsampling used before residual moment analysis. The code keeps every \texttt{skip1}-th spatial pixel.
+    \item \textbf{skip2}: this parameter determines the spectral downsampling used before residual moment analysis. The code keeps every \texttt{skip2}-th velocity channel.
+    \item \textbf{vlim}: this parameter determines the velocity range included in the residual analysis. Only channels satisfying $|v-v_{\rm sys}| < \texttt{vlim}$ are analyzed.
+    \item \textbf{plot\_lim}: this parameter determines the spatial region included in the residual analysis. Only pixels satisfying $|x| < \texttt{plot\_lim}$ and $|y| < \texttt{plot\_lim}$ are analyzed.
+    \item \textbf{min\_npix}: this parameter determines the minimum connected structure size retained by the dendrogram mask. Smaller connected residual features are discarded.
+    \item \textbf{nsigma}: this parameter determines the significance threshold for the dendrogram mask. Residual emission must exceed approximately $\texttt{nsigma} \times \sigma$ to be included.
 \end{itemize}
 
 \chapter{Run scripts \label{sec:run_script}}
