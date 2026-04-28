@@ -72,14 +72,6 @@ J1615,/path/to/J1615_cube.fits,146,0,4.7
 
 If `vsys_initial` is blank, it is estimated from the cube.
 
-## Data
-
-Public ALMA datasets that can be used with this workflow:
-
-- `exoALMA`: <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CFHWNH>
-- `DSHARP`: <https://almascience.eso.org/almadata/lp/DSHARP/>
-- `MAPS`: <https://alma-maps.info/data.html>
-
 ## Config
 
 Shared defaults live in `tests/config.py`.
@@ -97,3 +89,11 @@ Given `--output-root /path/to/output`, the pipeline writes:
 - `/path/to/output/result/channel_maps/<source_name>/`
 - `/path/to/output/html/`
 - `/path/to/output/moms/`
+
+## Data
+
+Link to ALMA Large program datasets: 
+- `exoALMA`: <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CFHWNH>
+- `DSHARP`: <https://almascience.eso.org/almadata/lp/DSHARP/>
+- `MAPS`: <https://alma-maps.info/data.html>
+
