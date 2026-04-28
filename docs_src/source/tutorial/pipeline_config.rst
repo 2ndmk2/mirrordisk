@@ -56,53 +56,99 @@ Common parameters in ``tests2/config.py``
    Shared defaults for the mirror fitting stage.
 
 ``inp_max``
-   Half-width of the interpolation grid in arcsec.
+   **This parameter determines the spatial extent used in the mirror fitting.**
+   The interpolation grid is built over
+   ``-inp_max <= x, y <= inp_max`` in arcsec, so it sets the half-width
+   of the fitted square region on the sky.
 
 ``n_points``
-   Number of interpolation samples per spatial axis.
+   **This parameter determines the spatial sampling of the fitting grid.**
+   It is the number of interpolation samples on each spatial axis, so
+   larger values produce a finer grid for the fitting.
 
 ``vec_offsets``
-   Velocity offsets in km/s, measured relative to ``vsys_initial``.
+   **This parameter determines the velocities used in the mirror fitting.**
+   These velocity offsets are measured relative to ``vsys_initial``, and
+   the fitting velocities are computed as ``v = vsys_initial + vec_offsets``.
 
 ``CHANNEL_MAP_PARAMS``
    Parameters for PDF channel map generation.
 
 ``dv``
-   Velocity spacing between plotted channels in km/s.
+   **This parameter determines the velocity sampling of the channel-map
+   output.** Channel maps are requested at intervals of ``dv`` in km/s
+   around the fitted systemic velocity.
 
 ``vlim``
-   Maximum absolute velocity offset from systemic velocity used in plots.
+   **This parameter determines the total velocity range shown in the
+   channel maps.** The code samples channels over approximately
+   ``-vlim <= v - vsys <= vlim``.
 
 ``plot_lim``
-   Spatial plot half-width in arcsec.
+   **This parameter determines the spatial field of view shown in each
+   channel-map panel.** The displayed axes are limited to
+   ``+-plot_lim`` arcsec.
 
 ``font_size`` and ``axes_labelsize``
-   Matplotlib font sizes for labels and titles.
+   **These parameters determine the annotation size in the PDF figures,**
+   including titles and axis labels.
 
 ``HTML_PARAMS``
    Parameters for the 3D residual HTML output.
 
 ``skip1``
-   Spatial downsampling factor.
+   **This parameter determines the spatial downsampling applied before
+   building the 3D residual cube.** The code keeps every ``skip1``-th
+   spatial pixel along both sky axes.
 
 ``skip2``
-   Spectral downsampling factor.
+   **This parameter determines the spectral downsampling applied before
+   meshing.** The code keeps every ``skip2``-th velocity channel.
+
+``vlim``
+   **This parameter determines the velocity range retained for the 3D
+   residual view.** Only channels satisfying
+   ``|v - vsys| < vlim`` are used.
 
 ``plot_lim``
-   Spatial half-width in arcsec used before meshing the cube.
+   **This parameter determines the spatial region retained for the 3D
+   residual view.** Only pixels satisfying
+   ``|x| < plot_lim`` and ``|y| < plot_lim`` are used.
 
 ``contour_sigma``
-   Multiplicative factor used to set the isosurface threshold from the measured noise.
+   **This parameter determines the isosurface threshold.** The plotted
+   contour level is computed from the measured noise as
+   ``contour_sigma * sigma``.
 
 ``RESIDUAL_ANALYSIS_PARAMS``
    Parameters for residual moment-map analysis.
 
+``skip1``
+   **This parameter determines the spatial downsampling used before
+   residual moment analysis.** The code keeps every ``skip1``-th spatial
+   pixel.
+
+``skip2``
+   **This parameter determines the spectral downsampling used before
+   residual moment analysis.** The code keeps every ``skip2``-th
+   velocity channel.
+
+``vlim``
+   **This parameter determines the velocity range included in the
+   residual analysis.** Only channels satisfying
+   ``|v - vsys| < vlim`` are analyzed.
+
+``plot_lim``
+   **This parameter determines the spatial region included in the
+   residual analysis.** Only pixels satisfying
+   ``|x| < plot_lim`` and ``|y| < plot_lim`` are analyzed.
+
 ``min_npix``
-   Minimum connected voxel count retained by the dendrogram mask.
+   **This parameter determines the minimum connected structure size
+   retained by the dendrogram mask.** Smaller connected residual
+   features are discarded.
 
 ``nsigma``
-   Signal threshold, in noise sigma, used when constructing the mask.
-
-``skip1``, ``skip2``, ``vlim``, and ``plot_lim``
-   Applied in the same way as in ``HTML_PARAMS`` before computing moments.
-
+   **This parameter determines the significance threshold for the
+   dendrogram mask.** Residual emission must exceed approximately
+   ``nsigma * sigma`` to be included.

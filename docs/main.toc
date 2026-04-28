@@ -1,0 +1,20 @@
+\contentsline {chapter}{\numberline {1}Overview}{2}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Install }{4}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Input and Configuration }{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Target CSV format }{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Configuration in \texttt {tests/config.py}}{5}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Mirror fitting}{5}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Channel maps}{6}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}3D HTML residual view}{6}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Residual analysis}{6}{subsection.3.2.4}%
+\contentsline {chapter}{\numberline {4}Run scripts }{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Quick start}{7}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Overview}{7}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Example commands}{7}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Output structure}{8}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Step details}{8}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}\texttt {mirror}}{8}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}\texttt {channel\_maps}}{8}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}\texttt {html}}{8}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}\texttt {residuals}}{8}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Notes}{8}{section.4.3}%
