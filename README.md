@@ -2,6 +2,8 @@
 
 `mirrordisk` extracts non-axisymmetric residual structure from ALMA spectral-line cubes by comparing each channel with its mirrored counterpart across the disk minor axis.
 
+For detailed usage, see [docs/main.pdf](/Users/masatakaaizawa/code/mirrordisk/docs/main.pdf).
+
 ## Install
 
 ```bash
@@ -96,4 +98,3 @@ Link to ALMA Large program datasets:
 - `exoALMA`: <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CFHWNH>
 - `DSHARP`: <https://almascience.eso.org/almadata/lp/DSHARP/>
 - `MAPS`: <https://alma-maps.info/data.html>
-
