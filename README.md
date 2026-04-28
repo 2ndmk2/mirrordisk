@@ -8,11 +8,12 @@
 pip install .
 ```
 
-or
+or 
 
 ```bash
 pip install -e .
 ```
+for developers. 
 
 Main dependencies are listed in `setup.py` and `requirements.txt`.
 
