@@ -7,8 +7,7 @@
 ```bash
 pip install .
 ```
-
-or 
+for users.  
 
 ```bash
 pip install -e .
